@@ -45,7 +45,7 @@
         <section>
             <h1>Introduction to GPU programming</h1>
 
-            <h3>29.08.2013</h3>
+            <h3>19.04.2018</h3>
 
             <p>
                 <small>Eirik Ola Aksnes</small>
@@ -56,12 +56,12 @@
             <h2>Agenda</h2>
             <ul>
                 <li>What are GPUs?</li>
-                <li>Where can GPUs be found?</li>
+                <!--<li>Where can GPUs be found?</li>-->
                 <li>Historical motivation - the video game industry</li>
                 <li>GPGPU - general-purpose computing on GPUs</li>
                 <li>CPU vs. GPU</li>
-                <li>Data parallelism</li>
                 <li>Nvidia CUDA</li>
+                <li>CUDA example - Hello world</li>
                 <li>CUDA example - Vector addition</li>
                 <li>Final comments</li>
             </ul>
@@ -74,7 +74,7 @@
                 <li>Hundreds of cores</li>
                 <li>Thousands of concurrent threads</li>
                 <li>First GPU - Nvidia's GeForce 256 (1999)</li>
-                <li>Vendors - NVIDIA, AMD, Intel</li>
+                <li>Vendors - NVIDIA, AMD, Intel, ARM</li>
             </ul>
             <aside class="notes">
                 <ul>
@@ -85,6 +85,7 @@
             </aside>
         </section>
 
+        <!--
         <section>
             <h2>Where can GPUs be found?</h2>
             <ul>
@@ -95,109 +96,114 @@
                 <li>Game consoles</li>
             </ul>
         </section>
+        -->
 
         <section>
-            <h2>Historical motivation - the video game industry</h2>
-            <blockquote>
-                Constantly pushes to improve the ability to perform massive numbers of floating point calculations in
-                video games (multi-billion dollar industry!)
-            </blockquote>
-            <aside class="notes">
-                Historisk sett så er utviklingen av GPUer drevet av spill industrien.
-                <ul>
-                    <li>En GPU er opprinnelig laget for å effektivt utføre beregninger som kreves av 3D grafikk.</li>
-                    <li>Det er en prossesor som er spesielt designet for beregnings intensive problemer.</li>
-                </ul>
-            </aside>
-        </section>
-
-        <section>
-            <h2>1981 - 3D Monster Maze</h2>
-            <img data-src="images/3d-monster-mace.png"/>
-            <aside class="notes">
-                3D monster maze er verdens første 3D-spill for en hjemme-PC.
-            </aside>
-        </section>
-
-        <section>
-            <h2>2013 - Tom Clancy’s The Division</h2>
-            <img data-src="images/tom-clancys-the-division.png"/>
-            <aside class="notes">
-                Tom Clancy’s fikk beste pris for 3D grafikk i 2013. Som vi ser, så har det skjedd mye siden 1981.
-            </aside>
-        </section>
-
-        <section>
-            <h2>GPGPU - General-purpose computing on GPUs</h2>
-            <ul>
-                <li>GPUs can be used for more than just graphic rendering</li>
-                <li>GPUs can accelerate applications in a variety of disciplines
-                    <ul><li>Big speedup compared to CPUs in some cases</li></ul>
-                </li>
-                <li>In the beginning graphic APIs, like OpenGL, was used to do GPGPU (big hack)
+            <section>
+                <h2>Historical motivation - the video game industry</h2>
+                <blockquote>
+                    Constantly pushes to improve the ability to perform massive numbers of floating point calculations in
+                    video games (multi-billion dollar industry!)
+                </blockquote>
+                <aside class="notes">
+                    Historisk sett så er utviklingen av GPUer drevet av spill industrien.
                     <ul>
-                        <li>Difficult to develop, debug, and optimize</li>
+                        <li>En GPU er opprinnelig laget for å effektivt utføre beregninger som kreves av 3D grafikk.</li>
+                        <li>Det er en prossesor som er spesielt designet for beregnings intensive problemer.</li>
                     </ul>
-                </li>
-                <li>Improvements in hardware and software has made GPGPU easier
-                    <ul>
-                        <li>Programmability</li>
-                    </ul>
-                </li>
-            </ul>
-            <aside class="notes">
-                <ul>
+                </aside>
+            </section>
 
-                    <li>..de kan brukes til å utføre beregninger tradisjonelt håndtert av CPUer, til å utføre generelle
-                        beregninger.
-                    </li>
-                    <li>Det å gjøre GPU programmering med OpenGL er vanskelig: Blant annet så krever det kunnskap om
-                        grafikk APIer, noe som er unødvendig for å programmere ikke grafiske applikasjoner.
-                    </li>
-                    <li>Det har blitt lettetere å programmere dem...</li>
-                </ul>
-            </aside>
+            <section>
+                <h2>1981 - 3D Monster Maze</h2>
+                <img data-src="images/3d-monster-mace.png"/>
+                <aside class="notes">
+                    3D monster maze er verdens første 3D-spill for en hjemme-PC.
+                </aside>
+            </section>
+
+            <section>
+                <h2>2018 - God of War </h2>
+                <img data-src="images/god-of-war.jpg"/>
+                <aside class="notes">
+                    Tom Clancy’s fikk beste pris for 3D grafikk i 2013. Som vi ser, så har det skjedd mye siden 1981.
+                </aside>
+            </section>
         </section>
 
         <section>
-            <h2>History of GPGPU computing</h2>
-            <img data-src="images/history-of-gpgpu-programming.png"/>
-            <aside class="notes">
-                Hvis vi ser på historien til GPGPU programmering:
-                <br />
-                <br />
-                Vi set at i begynnelsen ble grafikk APIer brukt:
+            <section>
+                <h2>GPGPU - General-purpose computing on GPUs</h2>
                 <ul>
-                    <li>OpenGL</li>
-                    <li>DirectX (Microsoft)</li>
-                </ul>
-                <br/>
-                Rundt ~ 2005 - Ulike abstraksjoner - Høy nivå (tredjeparts) språk som abstrahert bort grafikken.
-                <ul>
-                    <li>BrookGPU - Et generelt rammeverk for GPU programmering utviklet av Stanford University.
-                        Programmer skrives i språket Brook som er en utvidet versjon av standard C.
+                    <li>GPUs can be used for more than just graphic rendering</li>
+                    <li>GPUs can accelerate applications in a variety of disciplines
+                        <ul><li>Big speedup compared to CPUs in some cases</li></ul>
+                    </li>
+                    <li>In the beginning graphic APIs, like OpenGL, was used to do GPGPU (big hack)
+                        <ul>
+                            <li>Difficult to develop, debug, and optimize</li>
+                        </ul>
+                    </li>
+                    <li>Improvements in hardware and software has made GPGPU easier
+                        <ul>
+                            <li>Programmability</li>
+                        </ul>
                     </li>
                 </ul>
-                <br/>
-                Rundt ~ 2006 - Ble det sluppet fra leverandører, dedikerte språk for GPGPU programmering.
-                <ul>
-                    <li>I dag skal vi se på NVIDIA sitt som heter CUDA</li>
-                    <li>AMD - Close-to-Metal (CTM)</li>
-                    <li>DirectCompute - Microsoft</li>
-                    <li>OpenCL bør også nevnes:</li>
+                <aside class="notes">
                     <ul>
-                        <li>OpenCL står for Open Computing Language</li>
-                        <li>Tilsvarende CUDA, men er en åpen standard</li>
-                        <li>Opprinnelig utviklet av Apple, men er nå vedlikeholdt av Khronos gruppen (same gruppe som
-                            vedlikeholder OpenGL)
+
+                        <li>..de kan brukes til å utføre beregninger tradisjonelt håndtert av CPUer, til å utføre generelle
+                            beregninger.
                         </li>
-                        <li>En stor fordel med OpenCL er at man ikke bare er begrenset til en GPU leverandør, man kan
-                            faktisk også bruke CPUer, og potensielt en rekke andre enheter. For å gjøre data-parallelle
-                            beregninger.....
+                        <li>Det å gjøre GPU programmering med OpenGL er vanskelig: Blant annet så krever det kunnskap om
+                            grafikk APIer, noe som er unødvendig for å programmere ikke grafiske applikasjoner.
+                        </li>
+                        <li>Det har blitt lettetere å programmere dem...</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section>
+                <h2>History of GPGPU computing</h2>
+                <img data-src="images/history-of-gpgpu-programming.png"/>
+                <aside class="notes">
+                    Hvis vi ser på historien til GPGPU programmering:
+                    <br />
+                    <br />
+                    Vi set at i begynnelsen ble grafikk APIer brukt:
+                    <ul>
+                        <li>OpenGL</li>
+                        <li>DirectX (Microsoft)</li>
+                    </ul>
+                    <br/>
+                    Rundt ~ 2005 - Ulike abstraksjoner - Høy nivå (tredjeparts) språk som abstrahert bort grafikken.
+                    <ul>
+                        <li>BrookGPU - Et generelt rammeverk for GPU programmering utviklet av Stanford University.
+                            Programmer skrives i språket Brook som er en utvidet versjon av standard C.
                         </li>
                     </ul>
-                </ul>
-            </aside>
+                    <br/>
+                    Rundt ~ 2006 - Ble det sluppet fra leverandører, dedikerte språk for GPGPU programmering.
+                    <ul>
+                        <li>I dag skal vi se på NVIDIA sitt som heter CUDA</li>
+                        <li>AMD - Close-to-Metal (CTM)</li>
+                        <li>DirectCompute - Microsoft</li>
+                        <li>OpenCL bør også nevnes:</li>
+                        <ul>
+                            <li>OpenCL står for Open Computing Language</li>
+                            <li>Tilsvarende CUDA, men er en åpen standard</li>
+                            <li>Opprinnelig utviklet av Apple, men er nå vedlikeholdt av Khronos gruppen (same gruppe som
+                                vedlikeholder OpenGL)
+                            </li>
+                            <li>En stor fordel med OpenCL er at man ikke bare er begrenset til en GPU leverandør, man kan
+                                faktisk også bruke CPUer, og potensielt en rekke andre enheter. For å gjøre data-parallelle
+                                beregninger.....
+                            </li>
+                        </ul>
+                    </ul>
+                </aside>
+            </section>
         </section>
 
         <section>
@@ -408,78 +414,80 @@
 
                 </aside>
             </section>
-        </section>
 
-        <section>
-            <h2>Data parallelism</h2>
-            <img height="300" data-src="images/data-parallelism.png"/>
-            <ul>
-                <li>Multiple processing units performs in parallel the same operation on different data elements</li>
-                <li>Flynn's taxonomy: Single-Instruction Multiple-Data (SIMD)</li>
-                <li>NVIDIA: Single-Instruction Multiple-Threads (SIMT)</li>
-            </ul>
-            <aside class="notes">
+            <section>
+                <h2>Data parallelism</h2>
+                <img height="300" data-src="images/data-parallelism.png"/>
                 <ul>
-                    <li>En GPU er spesielt godt egnet til å løse problemer som kan uttrykkes som data-parallelle
-                        beregninger.
-                    </li>
-                    <li>I 3D grafikk er det veldig mange beregninger som utføres for hvert sekund, men i tillegg til
-                        det, så er det ofte den samme beregningen som utføres, bare på forskjellige data elementer.
-                        F.eks det å fargelege alle objekter i en 3D verden.
-                    </li>
-                    <li>
-                        Data paralilittet vil si at man har mange prosesserings enheter…..
-                    </li>
-                    <li>NVIDIA kaller sin data-parallelle programmings model for SIMT.</li>
+                    <li>Multiple processing units performs in parallel the same operation on different data elements</li>
+                    <li>Flynn's taxonomy: Single-Instruction Multiple-Data (SIMD)</li>
+                    <li>NVIDIA: Single-Instruction Multiple-Threads (SIMT)</li>
                 </ul>
-                <!--Backup:
-                It can be said that SIMT is a more flexible SIMD.
-                SIMT er en mer fleksibel enn SIMD, den støtter blant annet forgrening (f.eks. if-test, for-løkke
-                el.l.)...
-                SIMT and SIMD both approach parallelism through broadcasting the same instruction to multiple execution
-                units. This way, you replicate the execution units, but they all share the same fetch/decode hardware.
-                Indeed, although typically every thread will run identical functions, the functions themselves can
-                condition on thread identifiers and data so that different instructions are executed in some threads.
-                However, in SIMD architectures this leads to a performance hit since computation only occurs in parallel
-                when the same instructions are being performed
-                More specifically, the GPU is especially well-suited to address problems that can be expressed as
-                data-parallel computations.
-                En GPU er altså laget for å utføre veldig mange identiske beregninger på forskjellige data elementer
-                veldig raskt.
+                <aside class="notes">
+                    <ul>
+                        <li>En GPU er spesielt godt egnet til å løse problemer som kan uttrykkes som data-parallelle
+                            beregninger.
+                        </li>
+                        <li>I 3D grafikk er det veldig mange beregninger som utføres for hvert sekund, men i tillegg til
+                            det, så er det ofte den samme beregningen som utføres, bare på forskjellige data elementer.
+                            F.eks det å fargelege alle objekter i en 3D verden.
+                        </li>
+                        <li>
+                            Data paralilittet vil si at man har mange prosesserings enheter…..
+                        </li>
+                        <li>NVIDIA kaller sin data-parallelle programmings model for SIMT.</li>
+                    </ul>
+                    <!--Backup:
+                    It can be said that SIMT is a more flexible SIMD.
+                    SIMT er en mer fleksibel enn SIMD, den støtter blant annet forgrening (f.eks. if-test, for-løkke
+                    el.l.)...
+                    SIMT and SIMD both approach parallelism through broadcasting the same instruction to multiple execution
+                    units. This way, you replicate the execution units, but they all share the same fetch/decode hardware.
+                    Indeed, although typically every thread will run identical functions, the functions themselves can
+                    condition on thread identifiers and data so that different instructions are executed in some threads.
+                    However, in SIMD architectures this leads to a performance hit since computation only occurs in parallel
+                    when the same instructions are being performed
+                    More specifically, the GPU is especially well-suited to address problems that can be expressed as
+                    data-parallel computations.
+                    En GPU er altså laget for å utføre veldig mange identiske beregninger på forskjellige data elementer
+                    veldig raskt.
 
-                URLs:
-                http://www.yosefk.com/blog/simd-simt-smt-parallelism-in-nvidia-gpus.html-->
-            </aside>
+                    URLs:
+                    http://www.yosefk.com/blog/simd-simt-smt-parallelism-in-nvidia-gpus.html-->
+                </aside>
+            </section>
+
+            <section>
+                <h2>Data parallelism - Image example</h2>
+                <img height="400" data-src="images/data-parallelism-threads.png"/>
+                <aside class="notes">
+                    <ul>
+                        <li>Hvis vi ser på ett enkelt eksempel…</li>
+                        <li>...prosessering av piksler i ett bilde..</li>
+                        <li>...vi antar at vi kan prosessere piksler uavhengig av hverandre...</li>
+                        <li>Hvis vi ser på CPU eksempelet først, så er det typisk en tråd som går igjennom alle pikslene, en
+                            etter en, via en for-løkke. F.eks for å konvertere piksler fra farge verdier til svart hvit…
+                        </li>
+                        <li>Hvis vi ser på GPU eksempelet, så er ideen at man har mange tråder som prosesserer piksel i
+                            parallell.
+                        </li>
+                        <li>Hver tråd vil utføre den samme operasjonen, bare på forskjellige data elementer...</li>
+                        <li>Hvor mange tråder som vil bli prosessert i parallell er avhengig av hvor mange kjerner GPUen man
+                            benytter har.
+                        </li>
+                    </ul>
+                    <!--Functions that are executed many times, but independently on different data, are prime candidates:
+                    I.e. body of for-loops
+                    A lot of algorithms perform computations by iteratively traversing a large data set. This is often
+                    handled by a loop. In a sequential program this is executed in a sequential manner. If there are no
+                    data dependencies, this loop could be performed in any arbitrary order and would be well suited for
+                    parallel computing.-->
+                    </ul>
+                </aside>
+            </section>
         </section>
 
-        <section>
-            <h2>Data parallelism - Image example</h2>
-            <img height="400" data-src="images/data-parallelism-threads.png"/>
-            <aside class="notes">
-                <ul>
-                    <li>Hvis vi ser på ett enkelt eksempel…</li>
-                    <li>...prosessering av piksler i ett bilde..</li>
-                    <li>...vi antar at vi kan prosessere piksler uavhengig av hverandre...</li>
-                    <li>Hvis vi ser på CPU eksempelet først, så er det typisk en tråd som går igjennom alle pikslene, en
-                        etter en, via en for-løkke. F.eks for å konvertere piksler fra farge verdier til svart hvit…
-                    </li>
-                    <li>Hvis vi ser på GPU eksempelet, så er ideen at man har mange tråder som prosesserer piksel i
-                        parallell.
-                    </li>
-                    <li>Hver tråd vil utføre den samme operasjonen, bare på forskjellige data elementer...</li>
-                    <li>Hvor mange tråder som vil bli prosessert i parallell er avhengig av hvor mange kjerner GPUen man
-                        benytter har.
-                    </li>
-                </ul>
-                <!--Functions that are executed many times, but independently on different data, are prime candidates:
-                I.e. body of for-loops
-                A lot of algorithms perform computations by iteratively traversing a large data set. This is often
-                handled by a loop. In a sequential program this is executed in a sequential manner. If there are no
-                data dependencies, this loop could be performed in any arbitrary order and would be well suited for
-                parallel computing.-->
-                </ul>
-            </aside>
-        </section>
+
 
         <section>
             <section>
@@ -866,6 +874,135 @@ dim3 dimBlock (5); // 5 threads per block in 1D
                 </aside>
             </section>
 
+
+
+            <section>
+                <h2>NVIDIA's consumer graphics cards</h2>
+                <img height="500" data-src="images/cuda-overview.png"/>
+                <aside class="notes">
+                    Consumer graphics cards: Forbruker grafikkort
+                </aside>
+            </section>
+
+
+
+
+            <section>
+                <h2>Memory hierarchy</h2>
+                <img data-src="images/cuda-memory.png"/>
+                <aside class="notes">
+                    <ul>
+                        <li>Tråder kan få tilgang til data fra flere forskjellige minneområder på GPUen under
+                            eksekvering,
+                            illustrert i figuren...
+                        </li>
+                        <li>Hver tråd har ett privat lokalt minneområde.</li>
+                        <li>Hver trådblokk har ett delt minneområde som er synlig for alle tråder i blokken.</li>
+                        <li>Minnområde har samme levetid som trådblokken.</li>
+                        <li>Alle tråder har tilgang til ett stort globalt minneområde.</li>
+                        <li>Ytelse (husk å holde dataene i den raskeste minne som er overhode mulig):</li>
+                        <li>Lokalt -> Delt -> Global</li>
+                    </ul>
+                    <!--Backup:
+                    CPU and GPU have separate memory spaces.
+                    CUDA threads may access data from multiple memory spaces during their execution as illustrated in the figure.
+                    Each thread has private local memory.
+                    Each thread block has shared memory visible to all threads of the block and with the same lifetime as the block.
+                    All threads have access to the same global memory.
+                    Performance (keep the data in the fastest memory possible):-->
+                </aside>
+            </section>
+
+
+            <section>
+                <h2>Memory management</h2>
+
+                <p>Inside kernel</p>
+            <pre><code class="hljs" data-trim contenteditable>
+float variable; // Local memory (registers)
+__shared__ float variable; // Shared memory
+__device__ float variable; // Global memory
+            </code></pre>
+            </section>
+
+
+            <section>
+                <h2>Memory management</h2>
+                <ul>
+                    <li>
+                        Allocate GPU memory:
+                        <ul>
+                            <li>cudaMalloc(......)</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Copy data to/from GPU:
+                        <ul>
+                            <li>cudaMemcpy(......, cudaMemcpyHostToDevice)</li>
+                            <li>cudaMemcpy(......, cudaMemcpyDeviceToHost)</li>
+                        </ul>
+                    </li>
+                    <li>Free GPU memory:
+                        <ul>
+                            <li>cudaFree(......)
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Synchronization</h2>
+                <ul>
+                    <li>Point in the program where threads stop and wait</li>
+                    <li>When all threads have reached the barrier, they can proceed</li>
+                </ul>
+                <img height="200" data-src="images/cuda-sync.png"/>
+
+                <p>Inside kernel</p>
+<pre><code class="hljs" data-trim contenteditable>
+    __syncthreads() // Synchronize threads within a block
+</code></pre>
+                <aside class="notes">
+                    <ul>
+                        <li>Funksjons deklarasjoner, for å angi om en funksjon skal eksikveres på CPuen eller på
+                            GPUen.
+                        </li>
+                        <li>Variabel deklarasjoner, for å angi minne plassering på GPUen.</li>
+                        <li>Du har funksjon for å synkronisere tråder innenfor en trådblokk.</li>
+                    </ul>
+                    <!--Backup:
+                    Any source file that contains some of these extensions must be compiled with nvcc.
+                    Variable type qualifiers to specify the memory  location on the device
+                    Function type qualifiers to specify whether a function
+                    executes on the host or on the device-->
+                    </ul>
+                </aside>
+            </section>
+
+
+            <section>
+                <h2>CUDA C Programming Guide...</h2>
+                <p>At its core are three key abstractions – a <u>hierarchy of thread groups, shared memories, and
+                    barrier
+                    synchronization</u>...</p>
+                <img height="300" data-src="images/cuda-all.png"/>
+                <aside class="notes">
+                    Så la oss summere opp det vi har sett på så langt….
+                    <ul>
+                        <li>
+                            Vi har ett tråd hiarki….
+                        </li>
+                        <li>
+                            Vi har ett minne hiarki…
+                        </li>
+                        <li>
+                            Vi har synkroniserings muligheter…
+                        </li>
+                    </ul>
+                </aside>
+            </section>
+
             <section>
                 <h2>How are kernels executed?</h2>
                 <ul>
@@ -907,14 +1044,6 @@ dim3 dimBlock (5); // 5 threads per block in 1D
                     This SIMT (single instruction multiple thread) architecture is especially suitable for applications with
                     a high degree of data parallelism, where the same operations are applied to large amounts of data.
                     http://on-demand.gputechconf.com/gtc-express/2011/presentations/cuda_webinars_WarpsAndOccupancy.pdf-->
-                </aside>
-            </section>
-
-            <section>
-                <h2>NVIDIA's consumer graphics cards</h2>
-                <img height="500" data-src="images/cuda-overview.png"/>
-                <aside class="notes">
-                    Consumer graphics cards: Forbruker grafikkort
                 </aside>
             </section>
 
@@ -991,123 +1120,77 @@ dim3 dimBlock (5); // 5 threads per block in 1D
             </section>
 
 
-            <section>
-                <h2>Synchronization</h2>
-                <ul>
-                    <li>Point in the program where threads stop and wait</li>
-                    <li>When all threads have reached the barrier, they can proceed</li>
-                </ul>
-                <img height="200" data-src="images/cuda-sync.png"/>
 
-                <p>Inside kernel</p>
+        </section>
+
+        <section>
+            <section>
+                <h1>CUDA example - Hello World</h1>
+                <aside class="notes">
+                    Tenkte vi skulle se på ett veldig enkelt kode eksempel.
+                </aside>
+            </section>
+
+            <section>
+                <h2>Hello World @ CPU</h2>
 <pre><code class="hljs" data-trim contenteditable>
-    __syncthreads() // Synchronize threads within a block
+int main(void)
+    printf("Hello World!");
+    return 0;
+}
 </code></pre>
-                <aside class="notes">
-                    <ul>
-                        <li>Funksjons deklarasjoner, for å angi om en funksjon skal eksikveres på CPuen eller på
-                            GPUen.
-                        </li>
-                        <li>Variabel deklarasjoner, for å angi minne plassering på GPUen.</li>
-                        <li>Du har funksjon for å synkronisere tråder innenfor en trådblokk.</li>
-                    </ul>
-                    <!--Backup:
-                    Any source file that contains some of these extensions must be compiled with nvcc.
-                    Variable type qualifiers to specify the memory  location on the device
-                    Function type qualifiers to specify whether a function
-                    executes on the host or on the device-->
-                    </ul>
-                </aside>
-            </section>
-
-
-            <section>
-                <h2>Memory hierarchy</h2>
-                <img data-src="images/cuda-memory.png"/>
-                <aside class="notes">
-                    <ul>
-                        <li>Tråder kan få tilgang til data fra flere forskjellige minneområder på GPUen under
-                            eksekvering,
-                            illustrert i figuren...
-                        </li>
-                        <li>Hver tråd har ett privat lokalt minneområde.</li>
-                        <li>Hver trådblokk har ett delt minneområde som er synlig for alle tråder i blokken.</li>
-                        <li>Minnområde har samme levetid som trådblokken.</li>
-                        <li>Alle tråder har tilgang til ett stort globalt minneområde.</li>
-                        <li>Ytelse (husk å holde dataene i den raskeste minne som er overhode mulig):</li>
-                        <li>Lokalt -> Delt -> Global</li>
-                    </ul>
-                    <!--Backup:
-                    CPU and GPU have separate memory spaces.
-                    CUDA threads may access data from multiple memory spaces during their execution as illustrated in the figure.
-                    Each thread has private local memory.
-                    Each thread block has shared memory visible to all threads of the block and with the same lifetime as the block.
-                    All threads have access to the same global memory.
-                    Performance (keep the data in the fastest memory possible):-->
-                </aside>
-            </section>
-
-
-            <section>
-                <h2>Memory management</h2>
-
-                <p>Inside kernel</p>
-            <pre><code class="hljs" data-trim contenteditable>
-float variable; // Local memory (registers)
-__shared__ float variable; // Shared memory
-__device__ float variable; // Global memory
-            </code></pre>
-            </section>
-
-
-            <section>
-                <h2>Memory management</h2>
                 <ul>
-                    <li>
-                        Allocate GPU memory:
-                        <ul>
-                            <li>cudaMalloc(......)</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Copy data to/from GPU:
-                        <ul>
-                            <li>cudaMemcpy(......, cudaMemcpyHostToDevice)</li>
-                            <li>cudaMemcpy(......, cudaMemcpyDeviceToHost)</li>
-                        </ul>
-                    </li>
-                    <li>Free GPU memory:
-                        <ul>
-                            <li>cudaFree(......)
-                            </li>
-                        </ul>
-                    </li>
+                    <li>Only one thread of execution</li>
+                    <li>No explicit parallelism</li>
+                </ul>
+                <aside class="notes">
+                    Det er to interessante ting man kan merke seg her:
+                    <ul>
+                        <li>Det er bare en tråd som kjører</li>
+                        <li>Det er ingen eksplisitt parallellitet</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section>
+                <h2>Output</h2>
+<pre><code class="hljs" data-trim contenteditable>
+Hello World!
+</code></pre>
+            </section>
+
+            <section>
+                <h2>Hello World @ GPU</h2>
+<pre><code class="hljs" data-trim contenteditable>
+__global__ void kernel( void ) {
+    printf( "Hello thread! %d \n", threadIdx.x);
+}
+
+int main( void ) {
+    kernel<<<1,5>>>();
+    return 0;
+}
+
+</code></pre>
+                <ul>
+                    <li>The printf is a fake example function for illustration</li>
+                    <li>This is all that’s required to execute a function on the GPU!</li>
                 </ul>
             </section>
 
-
             <section>
-                <h2>CUDA C Programming Guide...</h2>
-                <p>At its core are three key abstractions – a <u>hierarchy of thread groups, shared memories, and
-                    barrier
-                    synchronization</u>...</p>
-                <img height="300" data-src="images/cuda-all.png"/>
-                <aside class="notes">
-                    Så la oss summere opp det vi har sett på så langt….
-                    <ul>
-                        <li>
-                            Vi har ett tråd hiarki….
-                        </li>
-                        <li>
-                            Vi har ett minne hiarki…
-                        </li>
-                        <li>
-                            Vi har synkroniserings muligheter…
-                        </li>
-                    </ul>
-                </aside>
+                <h2>Hello Threads</h2>
+<pre><code class="hljs" data-trim contenteditable>
+Hello thread 2
+Hello thread 1
+Hello thread 4
+Hello thread 0
+Hello thread 3
+</code></pre>
             </section>
         </section>
+
+
 
         <section>
             <section>

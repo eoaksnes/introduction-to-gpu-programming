@@ -6,3 +6,12 @@ See slides: [http://eoaksnes.github.io/introduction-to-gpu-programming](http://e
 
 * [See CPU code](code-examples/vectorAdd.c)
 * [See GPU code](code-examples/vectorAdd.cu)
+
+## Running locally
+
+```
+npm install
+npm start
+```
+
+Open http://localhost:8000 to view your presentation.
