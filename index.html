@@ -61,7 +61,7 @@
                 <li>GPGPU - general-purpose computing on GPUs</li>
                 <li>CPU vs. GPU</li>
                 <li>Nvidia CUDA</li>
-                <li>CUDA example - Hello world</li>
+                <!--<li>CUDA example - Hello world</li>-->
                 <li>CUDA example - Vector addition</li>
                 <li>Final comments</li>
             </ul>
@@ -71,8 +71,10 @@
             <h2>What are GPUs?</h2>
             <ul>
                 <li>GPUs are highly parallel, multithreaded, many-core processors</li>
-                <li>Hundreds of cores</li>
-                <li>Thousands of concurrent threads</li>
+                <ul>
+                    <li>Thousands of cores</li>
+                    <li>Thousands of concurrent threads</li>
+                </ul>
                 <li>First GPU - Nvidia's GeForce 256 (1999)</li>
                 <li>Vendors - NVIDIA, AMD, Intel, ARM</li>
             </ul>
@@ -164,7 +166,7 @@
                 </aside>
             </section>
 
-            <section>
+            <!--<section>
                 <h2>History of GPGPU computing</h2>
                 <img data-src="images/history-of-gpgpu-programming.png"/>
                 <aside class="notes">
@@ -202,7 +204,7 @@
                             </li>
                         </ul>
                     </ul>
-                </aside>
+                </aside>-->
             </section>
         </section>
 
@@ -335,6 +337,14 @@
                 </aside>
             </section>
 
+            <!--<section>
+                <h2>NVIDIA's consumer graphics cards</h2>
+                <img height="500" data-src="images/cuda-overview.png"/>
+                <aside class="notes">
+                    Consumer graphics cards: Forbruker grafikkort
+                </aside>
+            </section>-->
+
             <section>
                 <h2>Latency vs. Throughput</h2>
 
@@ -419,9 +429,9 @@
                 <h2>Data parallelism</h2>
                 <img height="300" data-src="images/data-parallelism.png"/>
                 <ul>
-                    <li>Multiple processing units performs in parallel the same operation on different data elements</li>
-                    <li>Flynn's taxonomy: Single-Instruction Multiple-Data (SIMD)</li>
-                    <li>NVIDIA: Single-Instruction Multiple-Threads (SIMT)</li>
+                    <li>Multiple processing units (threads) performs in parallel the same operation on different data elements</li>
+                    <!--<li>Flynn's taxonomy: Single-Instruction Multiple-Data (SIMD)</li>
+                    <li>NVIDIA: Single-Instruction Multiple-Threads (SIMT)</li>-->
                 </ul>
                 <aside class="notes">
                     <ul>
@@ -668,7 +678,7 @@
                 </aside>
             </section>
 
-            <section>
+            <!--<section>
                 <h2>Thread hierarchy - Blocks</h2>
                 <div class='left' style='float:left;width:48%'>
                  <ul>
@@ -690,11 +700,11 @@
                         <li>Tråder er gruppert i blokker (1D, 2D, eller 3D)</li>
                         <li>Hver tråd har en unik lokal ID i blokken sin...</li>
                     </ul>
-                    <!--Backup:
+                    Backup:
                     Max number of threads per block ~ 512 or 1024
                     Every thread operates on a specific data element
                     URLs:
-                    http://www.pgroup.com/lit/articles/insider/v2n1a5.htm-->
+                    http://www.pgroup.com/lit/articles/insider/v2n1a5.htm
                     </ul>
                 </aside>
             </section>
@@ -723,7 +733,7 @@
                         <li>Alle blokker i et grid har samme dimensjon...</li>
                     </ul>
                 </aside>
-            </section>
+            </section>-->
 
             <!--<section>
                 <h2>Thread hierarchy - Unique Ids</h2>
@@ -749,7 +759,7 @@
                 </aside>
             </section>-->
 
-            <section>
+            <!--<section>
                 <h2>Thread hierarchy - Scalability</h2>
                 <div class='left' style='float:left;width:48%'>
                  <ul>
@@ -784,11 +794,11 @@
                             kjerner...
                         </li>
                     </ul>
-                    <!--Backup:
+                    Backup:
                     Enabling programmers to write code that scales with the number of cores.
-                    All threads in a grid execute the same kernel - Alle tråder i ett grid utfører den samme kernelen.-->
+                    All threads in a grid execute the same kernel - Alle tråder i ett grid utfører den samme kernelen.
                 </aside>
-            </section>
+            </section>-->
 
             <section>
                 <h2>How to launch a kernel?</h2>
@@ -862,7 +872,7 @@ myKernel&#60;&#60;&#60;dimGrid, dimBlock&#62;&#62;&#62;();
                 </aside>
             </section>-->
 
-            <section>
+            <!--<section>
                 <h2>How to determine unique thread IDs?</h2>
                 <p>With this execution configuration</p>
                 <pre><code class="hljs" data-trim contenteditable>
@@ -872,19 +882,7 @@ dim3 dimBlock (5); // 5 threads per block in 1D
                 <img height="300" data-src="images/cuda-grid-calculation.png"/>
                 <aside class="notes">
                 </aside>
-            </section>
-
-
-
-            <section>
-                <h2>NVIDIA's consumer graphics cards</h2>
-                <img height="500" data-src="images/cuda-overview.png"/>
-                <aside class="notes">
-                    Consumer graphics cards: Forbruker grafikkort
-                </aside>
-            </section>
-
-
+            </section>-->
 
 
             <section>
@@ -914,7 +912,7 @@ dim3 dimBlock (5); // 5 threads per block in 1D
             </section>
 
 
-            <section>
+            <!--<section>
                 <h2>Memory management</h2>
 
                 <p>Inside kernel</p>
@@ -950,6 +948,7 @@ __device__ float variable; // Global memory
                     </li>
                 </ul>
             </section>
+            -->
 
             <section>
                 <h2>Synchronization</h2>
@@ -1003,7 +1002,7 @@ __device__ float variable; // Global memory
                 </aside>
             </section>
 
-            <section>
+            <!--<section>
                 <h2>How are kernels executed?</h2>
                 <ul>
                     <li>The GPU core is the stream processor (SP)
@@ -1037,13 +1036,13 @@ __device__ float variable; // Global memory
                         </li>
                         <li>En stream multiprosessor kan ses på som en SIMD-prosessor.</li>
                     </ul>
-                    <!--Backup:
+                    Backup:
                     The multiprocessor creates, manages, schedules, and executes threads in groups of 32 parallel threads
                     called warps
                     An SM can execute large numbers of threads simultaneously, with each thread running the same program.
                     This SIMT (single instruction multiple thread) architecture is especially suitable for applications with
                     a high degree of data parallelism, where the same operations are applied to large amounts of data.
-                    http://on-demand.gputechconf.com/gtc-express/2011/presentations/cuda_webinars_WarpsAndOccupancy.pdf-->
+                    http://on-demand.gputechconf.com/gtc-express/2011/presentations/cuda_webinars_WarpsAndOccupancy.pdf
                 </aside>
             </section>
 
@@ -1070,8 +1069,6 @@ __device__ float variable; // Global memory
                             tilgjengelig kapasitet… Kan også nevne at dette blir gjort automatisk av GPUen...
                         </li>
                     </ul>
-                    <!--URLs:
-                    http://www.cc.gatech.edu/~vetter/keeneland/tutorial-2011-04-14/02-cuda-overview.pdf-->
                 </aside>
             </section>
 
@@ -1117,13 +1114,10 @@ __device__ float variable; // Global memory
                         <li>En stream processor kan håndtere en eller flere tråder i en blokk.</li>
                     </ul>
                 </aside>
-            </section>
-
-
-
+            </section>-->
         </section>
 
-        <section>
+        <!--<section>
             <section>
                 <h1>CUDA example - Hello World</h1>
                 <aside class="notes">
@@ -1188,7 +1182,7 @@ Hello thread 0
 Hello thread 3
 </code></pre>
             </section>
-        </section>
+        </section>-->
 
 
 
@@ -1197,25 +1191,6 @@ Hello thread 3
                 <h1>CUDA example - Vector addition</h1>
                 <aside class="notes">
                     Tenkte vi skulle se på ett kode eksempel, hvor vi skal legge sammen to vektorer.
-                </aside>
-            </section>
-
-            <section>
-                <h2>Typical program execution</h2>
-                <ul>
-                    <li>Allocate memory and initialize data on CPU</li>
-                    <li>Allocate memory on GPU</li>
-                    <li>Transfer data from CPU to GPU
-                        <ul>
-                            <li>A slow operation, aim to minimize this!</li>
-
-                        </ul>
-                    </li>
-                    <li>Lunch kernel</li>
-                    <li>Transfer results back from GPU to CPU</li>
-                    <li>Free CPU and GPU memory</li>
-                </ul>
-                <aside class="notes">
                 </aside>
             </section>
 
@@ -1229,7 +1204,7 @@ Hello thread 3
 
             <section>
                 <h2>Vector addition on CPU</h2>
-<pre><code class="hljs" data-trim contenteditable>
+<pre><code class="hljs" style="font-size: 19px;"  data-trim contenteditable>
 for(int i=0; i&#60;N-1; i++) {
     C[i] = A[i] + B[i];
 }
@@ -1248,6 +1223,25 @@ for(int i=0; i&#60;N-1; i++) {
             </section>
 
             <section>
+                <h2>GPU - Typical program execution</h2>
+                <ul>
+                    <li>Allocate memory and initialize data on CPU</li>
+                    <li>Allocate memory on GPU</li>
+                    <li>Transfer data from CPU to GPU
+                        <ul>
+                            <li>A slow operation, aim to minimize this!</li>
+
+                        </ul>
+                    </li>
+                    <li>Lunch kernel</li>
+                    <li>Transfer results back from GPU to CPU</li>
+                    <li>Free CPU and GPU memory</li>
+                </ul>
+                <aside class="notes">
+                </aside>
+            </section>
+
+            <!--<section>
                 <h2>Allocate memory on CPU</h2>
 <pre><code class="hljs" data-trim contenteditable>
 int main() {
@@ -1309,27 +1303,27 @@ int main() {
 </code></pre>
                 <aside class="notes">
                 </aside>
-            </section>
+             </section>-->
 
              <section>
                 <h2>Lunch kernel</h2>
-<pre><code class="hljs" data-trim contenteditable>
-    // Execution configuration
-    int threadsPerBlock = 256;
-    int blocksPerGrid =(n + threadsPerBlock - 1) / threadsPerBlock;
+<pre><code class="hljs" style="font-size: 19px;" data-trim contenteditable>
+// Execution configuration
+int threadsPerBlock = 256;
+int blocksPerGrid =(n + threadsPerBlock - 1) / threadsPerBlock;
 
-    // Launch kernel
-    vectorAdd&#60;&#60;&#60;blocksPerGrid, threadsPerBlock&#62;&#62;&#62;(d_A, d_B,
-    d_C, n);
+// Launch kernel
+vectorAdd&#60;&#60;&#60;blocksPerGrid, threadsPerBlock&#62;&#62;&#62;(d_A, d_B,
+d_C, n);
 
-    printf("Kernel launch with %d blocks of %d threads\n",
+printf("Kernel launch with %d blocks of %d threads\n",
     blocksPerGrid, threadsPerBlock);
 </code></pre>
                 <aside class="notes">
                 </aside>
             </section>
 
-            <section>
+            <!--<section>
                 <h2>Transfer results back from GPU to CPU</h2>
 <pre><code class="hljs" data-trim contenteditable>
     // Copy the result back to the host result vector
@@ -1376,13 +1370,13 @@ int main() {
 </code></pre>
                 <aside class="notes">
                 </aside>
-            </section>
+            </section>-->
 
 
             <section>
                 <h2>The kernel</h2>
                 <p>The for-loop is removed!</p>
-<pre><code class="hljs" data-trim contenteditable>
+<pre><code class="hljs" style="font-size: 19px;" data-trim contenteditable>
 #include &#60;stdio.h&#62;
 #include &#60;cuda_runtime.h&#62;
 
@@ -1450,7 +1444,7 @@ $ Final result: 4.000000
                 </aside>
             </section>
 
-            <section>
+            <!--<section>
                 <h2>Execution time CPU vs. GPU - Assume we do 64 additions</h2>
                 <ul>
                     <li>CPU uses 2 ns for 1 addition. CPU execution time = number of additions * time it takes for 1 addition = 64 * 2 ns = 128 ns</li>
@@ -1467,7 +1461,7 @@ $ Final result: 4.000000
                         </li>
                     </ul>
                 </aside>
-            </section>
+            </section>-->
 
         </section>
 
@@ -1475,7 +1469,7 @@ $ Final result: 4.000000
             <section>
                 <h1>Final comments</h1>
             </section>
-            <section>
+            <!--<section>
                 <h2>Performance guidelines</h2>
                 <ul>
                     <li>High arithmetic intensity: Math (maximize) / memory (minimize)</li>
@@ -1506,13 +1500,8 @@ $ Final result: 4.000000
                     </ul>
                     Unngå tråd avvik/divergens… det kan føre til at ting må utføres sekvensielt… altså redusere ytelsen….prøv derfor å få hver tråd til å følge samme sti…
                     Som vi nå har sett så er det altså andre ytelse retningslinjer enn på en CPU…..
-<!--URLs:
-https://www.udacity.com/course/viewer#!/c-cs344/l-109244577/m-110930691
-http://www.bu.edu/pasi/files/2011/07/Lecture1.pdf
-http://ipa.iwr.uni-heidelberg.de/dokuwiki/lib/exe/fetch.php?media=teaching:ft09:swprak:05_optimierungstechniken.pdf
--->
                 </aside>
-            </section>
+            </section>-->
 
             <section>
                 <h2>Why use GPUs?</h2>
@@ -1632,8 +1621,8 @@ Suksessen til GPUer har delvis vært på grunn av sin pris.-->
                 <ul>
                     <li>CPU + GPU = combination of flexibility and performance
                     </li>
-                    <li>GPUs can make your simulations go faster. So that you can not slack off....
-                    </li>
+                    <!--<li>GPUs can make your simulations go faster. So that you can not slack off....
+                    </li>-->
                     <li>Getting started with GPU programming is easy, being able to fully utilize GPU hardware is
                         hard...
                     </li>
